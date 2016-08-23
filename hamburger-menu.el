@@ -101,7 +101,7 @@ OVERRIDDEN is the underlying function
   ;; whether the advice is still needed for other buffers.
 
   ;; No message here because there's no corresponding message in
-  ;; --enabled.
+  ;; --enable.
   ;; (message "Hamburger Menu disabled."))
   )
 
@@ -114,7 +114,7 @@ OVERRIDDEN is the underlying function
     (hamburger-menu--disable)))
 
 (defun hamburger-menu-mode-on ()
-  "Turn or, or keep turned on, Hamburger Menu mode."
+  "Turn on, or keep turned on, Hamburger Menu mode."
   (hamburger-menu-mode 1))
 
 ;;;###autoload
