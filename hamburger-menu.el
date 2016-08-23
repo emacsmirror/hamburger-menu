@@ -49,8 +49,8 @@
 
 (defun hamburger-menu--obey-final-items (final-items keymap)
   "Return a keymap respecting FINAL-ITEMS, based upon KEYMAP.
-This typically places the Help menu last, after the major-mode
-specific menu items."
+This typically places the Help menu last, after menu items
+specific to the major mode."
   ;; This method is borrowed from tmm.el.
   (let ((menu-bar '())
         (menu-end '()))
