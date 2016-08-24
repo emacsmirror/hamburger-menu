@@ -48,7 +48,8 @@
 (require 'mouse)
 (require 'tmm)
 
-(defconst hamburger-menu--indicator " ☰"
+(defconst hamburger-menu--symbol "☰")
+(defconst hamburger-menu--indicator (format " %s" hamburger-menu--symbol)
   "Indicator for the minor mode in the mode line.
 Contains whitespace before the symbol to improve the look when
 squashed up next to other minor mode indicators.")
@@ -73,6 +74,20 @@ specific to the major mode."
       ,@(reverse menu-bar)
       ,@(reverse menu-end))))
 
+(defun hamburger-menu--items ()
+  "The menu items for the popup."
+  (let ((menu-main (tmm-get-keybind [menu-bar])))
+    (hamburger-menu--obey-final-items menu-bar-final-items menu-main)))
+
+(defun hamburger-menu--items-add-heading (items)
+  "Add a heading to the menu items, ITEMS.
+The heading is for consistency with the popups of other modes in
+the mode line."
+  `(keymap (hamburger-menu-heading menu-item
+				   "Hamburger Menu")
+	   (sep-hamburger-menu "--")
+	   ,items))
+
 (defun hamburger-menu--minor-mode-menu-from-indicator--advice
     (overridden &rest args)
   "Override `minor-mode-menu-from-indicator', for the hamburger menu.
@@ -80,14 +95,8 @@ OVERRIDDEN is the underlying function
 `minor-mode-menu-from-indicator', and ARGS are its arguments."
   (let ((indicator (car args)))
     (if (string-equal indicator hamburger-menu--indicator)
-	(let* ((menu-main (tmm-get-keybind [menu-bar]))
-	       (menu-main (hamburger-menu--obey-final-items
-			   menu-bar-final-items menu-main))
-	       (menu `(keymap (hamburger-menu-heading menu-item
-						      "Hamburger Menu")
-			      (sep-hamburger-menu "--")
-			      ,menu-main)))
-	  (popup-menu menu))
+	(popup-menu
+	 (hamburger-menu--items-add-heading (hamburger-menu--items)))
       (apply overridden args))))
 
 (defun hamburger-menu--enable ()
