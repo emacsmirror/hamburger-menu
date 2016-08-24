@@ -117,7 +117,7 @@ OVERRIDDEN is the underlying function
     (hamburger-menu--disable)))
 
 (defun hamburger-menu-mode-on ()
-  "Turn on, or keep turned on, Hamburger Menu mode."
+  "Turn on, or leave turned on, Hamburger Menu mode."
   (hamburger-menu-mode 1))
 
 ;;;###autoload
