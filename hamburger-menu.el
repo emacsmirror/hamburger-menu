@@ -40,9 +40,24 @@
 ;;
 ;; Afterwards, configure as follows:
 ;;
-;;     M-x customize-set-variable RET global-hamburger-menu-mode RET y
-;;     M-x customize-set-variable RET menu-bar-mode RET n
-;;     M-x customize-save-customized
+;; 1. Disable `menu-bar-mode', because having two menus is superfluous:
+;;
+;;        M-x customize-set-variable RET menu-bar-mode RET n
+;;        M-x customize-save-customized
+;;
+;; 2. Add the following to your `~/.emacs'.  This will place the
+;;    hamburger menu button at the very left of your mode line:
+;;
+;;        (require 'hamburger-menu)
+;;        (setq mode-line-front-space 'hamburger-menu-mode-line)
+;;
+;; 3. Restart Emacs.  Enjoy.
+;;
+;; On the off chance you consider modifying `mode-line-front-space' to
+;; be overly invasive, you can instead enable
+;; `global-hamburger-menu-mode'.  The downside of the mode is that the
+;; hamburger menu button it provides cannot be nicely aligned at the
+;; left of the mode line.
 ;;
 ;;; Change Log:
 ;;
@@ -94,6 +109,8 @@ the mode line."
 	   (sep-hamburger-menu "--")
 	   ,items))
 
+;;; Minor mode.
+
 (defun hamburger-menu--minor-mode-menu-from-indicator--advice
     (overridden &rest args)
   "Override `minor-mode-menu-from-indicator', for the hamburger menu.
@@ -142,6 +159,35 @@ OVERRIDDEN is the underlying function
 (define-globalized-minor-mode
   global-hamburger-menu-mode
   hamburger-menu-mode hamburger-menu-mode-on)
+
+;; Explicit mode line customization.
+
+(defvar hamburger-menu--mode-line-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map [mode-line mouse-1]
+      (lambda (_e)
+	(interactive "e")
+	(popup-menu (hamburger-menu--items))))
+    ;; bindings.el loves to pure copy, so we do too.
+    (purecopy map))
+  "Keymap for `hamburger-menu-mode-line'.")
+
+(defvar hamburger-menu-mode-line
+  `(,(propertize
+      hamburger-menu--symbol
+      'help-echo "Hamburger Menu\nmouse-1: Display popup menu"
+      'local-map hamburger-menu--mode-line-map))
+  "Mode line construct for displaying a hamburger menu button.
+
+As opposed to `hamburger-menu-mode', this allows you to force the
+hamburger-menu to be at a particular location on the mode line.
+To do so, add this variable to `mode-line-format'.")
+
+;; Required for `mode-line-format' to respect our use of propertize.
+;;;###autoload
+(put 'hamburger-menu-mode-line 'risky-local-variable t)
+
+;;; Bye.
 
 (provide 'hamburger-menu)
 ;;; hamburger-menu.el ends here
