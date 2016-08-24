@@ -48,7 +48,10 @@
 (require 'mouse)
 (require 'tmm)
 
-(defconst hamburger-menu--indicator " ☰")
+(defconst hamburger-menu--indicator " ☰"
+  "Indicator for the minor mode in the mode line.
+Contains whitespace before the symbol to improve the look when
+squashed up next to other minor mode indicators.")
 
 (defun hamburger-menu--obey-final-items (final-items keymap)
   "Return a keymap respecting FINAL-ITEMS, based upon KEYMAP.
