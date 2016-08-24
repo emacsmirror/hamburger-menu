@@ -165,9 +165,9 @@ OVERRIDDEN is the underlying function
 (defvar hamburger-menu--mode-line-map
   (let ((map (make-sparse-keymap)))
     (define-key map [mode-line mouse-1]
-      (lambda (_e)
+      (lambda (e)
 	(interactive "e")
-	(popup-menu (hamburger-menu--items))))
+	(popup-menu (hamburger-menu--items) e)))
     ;; bindings.el loves to pure copy, so we do too.
     (purecopy map))
   "Keymap for `hamburger-menu-mode-line'.")
