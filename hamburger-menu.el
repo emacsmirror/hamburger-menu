@@ -27,7 +27,10 @@
 ;;; Commentary:
 ;;
 ;; A minor mode which adds a hamburger menu button to the mode line.
-;; Use instead of `menu-bar-mode' to save vertical space.
+;;
+;; Use instead of `menu-bar-mode' to save vertical space.  The
+;; hamburger menu is particularly useful when
+;; `mouse-autoselect-window' (Focus Follows Mouse) is enabled.
 ;;
 ;; Configure as follows:
 ;;

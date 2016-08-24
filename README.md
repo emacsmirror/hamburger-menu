@@ -1,5 +1,8 @@
-A hamburger menu button for the Emacs mode line.  Use instead of
-`menu-bar-mode' to save vertical space.
+A hamburger menu button for the Emacs mode line.
+
+Use instead of `menu-bar-mode' to save vertical space.  The hamburger
+menu is particularly useful when `mouse-autoselect-window' (Focus
+Follows Mouse) is enabled.
 
 ## Installation
 
