@@ -10,8 +10,6 @@ Add the [MELPA](https://melpa.org/) repository to Emacs.  Then run:
 
     M-x package-install hamburger-menu
 
-Afterwards, configure as follows:
+Configuration is required.  To see the instructions, run:
 
-    M-x customize-set-variable RET global-hamburger-menu-mode RET y
-    M-x customize-set-variable RET menu-bar-mode RET n
-    M-x customize-save-customized
+    M-x describe-package hamburger-menu
