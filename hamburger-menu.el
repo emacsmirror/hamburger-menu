@@ -160,7 +160,7 @@ OVERRIDDEN is the underlying function
   global-hamburger-menu-mode
   hamburger-menu-mode hamburger-menu-mode-on)
 
-;; Explicit mode line customization.
+;;; Explicit mode line customization.
 
 (defvar hamburger-menu--mode-line-map
   (let ((map (make-sparse-keymap)))
