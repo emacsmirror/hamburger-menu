@@ -4,6 +4,10 @@ Use instead of `menu-bar-mode` to save vertical space.  The hamburger
 menu is particularly useful when `mouse-autoselect-window` (Focus
 Follows Mouse) is enabled.
 
+## Screenshot
+
+![Screenshot](doc/screenshot.png)
+
 ## Installation
 
 Add the [MELPA](https://melpa.org/) repository to Emacs.  Then run:
