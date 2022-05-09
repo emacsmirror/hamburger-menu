@@ -1,13 +1,13 @@
 ;;; hamburger-menu.el --- Mode line hamburger menu  -*- lexical-binding: t -*-
 
-;; Copyright © 2016 Iain Nicol
+;; Copyright © 2016, 2022 Iain Nicol
 
 ;; Author: Iain Nicol
 ;; Maintainer: Iain Nicol
 ;; URL: https://gitlab.com/iain/hamburger-menu-mode
-;; Version: 1.0.5
+;; Version: 1.0.6
 ;; Keywords: hamburger, menu
-;; Package-Requires: ((emacs "24.5"))
+;; Package-Requires: ((emacs "28.1"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -67,7 +67,6 @@
 
 (require 'menu-bar)
 (require 'mouse)
-(require 'tmm)
 
 (defconst hamburger-menu--symbol "☰")
 (defconst hamburger-menu--indicator (format " %s" hamburger-menu--symbol)
@@ -75,30 +74,9 @@
 Contains whitespace before the symbol to improve the look when
 squashed up next to other minor mode indicators.")
 
-(defun hamburger-menu--obey-final-items (final-items keymap)
-  "Return a keymap respecting FINAL-ITEMS, based upon KEYMAP.
-This typically places the Help menu last, after menu items
-specific to the major mode."
-  ;; This method is borrowed from tmm.el.
-  (let ((menu-bar '())
-        (menu-end '()))
-    (map-keymap
-     (lambda (key binding)
-       (push (cons key binding)
-             ;; If KEY is the name of an item that we want to put last,
-             ;; move it to the end.
-             (if (memq key final-items)
-                 menu-end
-               menu-bar)))
-     keymap)
-    `(keymap
-      ,@(reverse menu-bar)
-      ,@(reverse menu-end))))
-
 (defun hamburger-menu--items ()
   "The menu items for the popup."
-  (let ((menu-main (tmm-get-keybind [menu-bar])))
-    (hamburger-menu--obey-final-items menu-bar-final-items menu-main)))
+  (menu-bar-keymap))
 
 (defun hamburger-menu--items-add-heading (items)
   "Add a heading to the menu items, ITEMS.
